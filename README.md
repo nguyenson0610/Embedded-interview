@@ -26,9 +26,13 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
 	-  Được giải phóng khi thoát ra khởi hàm.
 -  **_Phân vùng heap:_**
 	-  Có thể đọc hoặc ghi
-	-  Được sử dụng để cấp phát bộ nhớ động như: Malloc, Calloc, …
-	-  Được giải phóng khi thoát ra khởi hàm.
-	- Cấp phát động: ví dụ : `uint8_t *ptr = (uint8_t *)malloc(sizeof(uint8_t) * 5);`
+	-  Được sử dụng để cấp phát bộ nhớ động như: Malloc, Calloc, … (Malloc dùng để khởi tạo 1 mảng bắt đầu, Realloc để thay đổi kích thước của mảng, Calloc khởi tạo 1 mảng bắt đầu với gán giá trị đều bằng 0)
+	-  Được giải phóng khi gọi hàm free.
+	-  Cấp phát động: ví dụ : `uint8_t *ptr = (uint8_t *)malloc(sizeof(uint8_t) * 5);``arr = (uint8_t *)realloc(arr, sizeof(uint8_t)*8);`
+
+# **Macro - Fuction**
+- Macro diễn ra ở quá trình tiền xử lý. thay thế đoạn code vào chỗ xuất hiện các macro đó. Ví dụ ` define MAX = 10`
+
 # **Thao tác bit**
 - **_Tìm hiểu về thao tác thường gặp với bit:_** AND, NOT, OR, XOR, dịch bit (gồm dịch trái << và dịch phải >>)
   - AND: giống phép nhân, AND với 0 bằng 0, AND với 1 bằng chính nó.
