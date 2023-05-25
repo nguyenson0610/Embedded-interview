@@ -1,12 +1,35 @@
 # **Compiler**
 Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc cao sang ngôn ngữ máy để máy tính có thể hiểu được. Quá trình này được chia làm 4 giai đoạn:
 - **_Giai đoạn tiền xử lý (pre-processor):_** các file _.c/.h_ khi đi qua giai đoạn này sẽ biến thành file _.i_ (preprocessed source). Tại giai đoạn này, sẽ xóa bỏ các comment, xử lý các chỉ thị tiền xử lý, thay thế các đoạn chương trình mà macro định nghĩa.
-	-  Lệnh để thực hiện quá tình tiền xử lý là `gcc -E main.c -o main.i`
-- **_Giai đoạn compiler:_**
+	-  Cú pháp để thực hiện quá tình tiền xử lý là `gcc -E main.c -o main.i`
+- **_Giai đoạn compiler:_** file _.i_ khi qua giai đoạn này sẽ thành _.s_ (Assembly code). Giai đoạn này sẽ chuyển đổi ngôn ngữ C sang ngôn ngữ Assembly.
+	-  Cú pháp để thực hiện quá tình tiền xử lý là `gcc main.i -S -o main.s`
+- **_Giai đoạn assembler:_** file _.s_ khi qua giai đoạn này sẽ thành _.o_ (object file).
+	-  Cú pháp để thực hiện quá tình tiền xử lý là `gcc -c main.s -o main.o`
+- **_Giai đoạn linker:_** file _.o_ khi qua giai đoạn này sẽ thành _.exe_ (executable). Trong giai đoạn này mã máy của một chương trình dịch từ nhiều nguồn sẽ được liên kết lại với nhau để tạo thành 1 chương trình có thể thực thi được.
 
-
+# **Phân vùng nhớ**
+-  **_Phân vùng text:_** chỉ đọc data, không chỉnh sửa được. Thường chứa khai báo hằng số. Ví dụ: 
+	- Ví dụ: `const a = 10`;
+		  `char *arr = "Hello"`;
+-  **_Phân vùng data:_**
+	-  Có thể đọc hoặc ghi
+	-  Chứa biến toàn cục hoặc biến static với giá trị khởi tạo khác 0. Ví dụ: int a = 20; static int b = 12;
+	-  Được giải phóng khi kết thúc chương trình
+-  **_Phân vùng bss:_**
+	-  Có thể đọc hoặc ghi
+	-  Chứa biến toàn cục hoặc biến static với giá trị khởi tạo bằng 0 hoặc không khởi tạo. Ví dụ: int a; static int b = 0;
+	-  Được giải phóng khi kết thúc chương trình
+-  **_Phân vùng stack:_**
+	-  Có thể đọc hoặc ghi
+	-  Được sử dụng cấp phát cho biến cục bộ, input parameter của hàm, …
+	-  Được giải phóng khi thoát ra khởi hàm.
+-  **_Phân vùng heap:_**
+	-  Có thể đọc hoặc ghi
+	-  Được sử dụng để cấp phát bộ nhớ động như: Malloc, Calloc, …
+	-  Được giải phóng khi thoát ra khởi hàm.
+	- Cấp phát động: ví dụ : `uint8_t *ptr = (uint8_t *)malloc(sizeof(uint8_t) * 5);`
 # **Thao tác bit**
-
 - **_Tìm hiểu về thao tác thường gặp với bit:_** AND, NOT, OR, XOR, dịch bit (gồm dịch trái << và dịch phải >>)
   - AND: giống phép nhân, AND với 0 bằng 0, AND với 1 bằng chính nó.
   - OR: giống phép cộng.
