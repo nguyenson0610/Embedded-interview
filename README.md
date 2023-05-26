@@ -10,7 +10,7 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
 
 # **Phân vùng nhớ**
 -  **_Phân vùng text:_** chỉ đọc data, không chỉnh sửa được. Thường chứa khai báo hằng số. Ví dụ: 
-	- Ví dụ: `const a = 10`;
+	- Ví dụ: `const int a = 10`;
 		  `char *arr = "Hello"`;
 -  **_Phân vùng data:_**
 	-  Có thể đọc hoặc ghi
