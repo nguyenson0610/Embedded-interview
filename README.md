@@ -18,7 +18,7 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
 	-  Được giải phóng khi kết thúc chương trình
 -  **_Phân vùng bss:_**
 	-  Có thể đọc hoặc ghi
-	-  Chứa biến toàn cục hoặc biến static với giá trị khởi tạo bằng 0 hoặc không khởi tạo. Ví dụ: int a; static int b = 0;
+	-  Chứa biến toàn cục hoặc biến static với giá trị khởi tạo bằng 0 hoặc không khởi tạo. Ví dụ: `int a;` `static int b = 0;`
 	-  Được giải phóng khi kết thúc chương trình
 -  **_Phân vùng stack:_**
 	-  Có thể đọc hoặc ghi
@@ -31,7 +31,20 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
 	-  Cấp phát động: ví dụ : `uint8_t *ptr = (uint8_t *)malloc(sizeof(uint8_t) * 5);``arr = (uint8_t *)realloc(arr, sizeof(uint8_t)*8);`
 
 # **Macro - Fuction**
-- Macro diễn ra ở quá trình tiền xử lý. thay thế đoạn code vào chỗ xuất hiện các macro đó. Ví dụ ` define MAX = 10`
+- **_Macro:_** diễn ra ở quá trình tiền xử lý. thay thế đoạn code vào chỗ xuất hiện các macro đó.
+	-  Ví dụ `define MAX = 10`
+- **_Inline:_** được xử lý bởi compiler. Khi chạy chương trình thấy inline function, nó sẽ thay thế function đó thành mã máy đã được compiler.
+	- Ví dụ 
+		```C
+		inline void hello(){
+   			 printf("hello");
+		}
+		```
+- **_Function:_**: khi thấy hàm được gọi, compiler sẽ lưu địa chỉ tiếp theo của program counter đang đếm vào stack pointer, sau đó sẽ trở program counter đến địa chỉ hàm được gọi để thực hiện, khi thực hiện xong hàm đó và lấy kết quả trả về, program counter sẽ lấy địa chỉ lưu trong stack và tiếp tục thực hiện chương trình.
+- **_So sánh Macro, Inline, Function:_**:
+	- Macro: thay thế đoạn code marco vào chỗ được gọi trước khi compiler, marco khiến code dài hơn nhưng thời gian chạy nhanh hơn.
+	- Inline: thay thế đoạn code inline đã được compiler vào chỗ được gọi, inline khiến code dài hơn, giảm thời gian chạy chương trình.
+	- Function: tốn thời gian hơn inline, nhưng code ngắn gọn hơn.
 
 # **Thao tác bit**
 - **_Tìm hiểu về thao tác thường gặp với bit:_** AND, NOT, OR, XOR, dịch bit (gồm dịch trái << và dịch phải >>)
@@ -45,7 +58,46 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
   -  Hàm Readbyte: Để đọc được 1 byte, ta sẽ kiểm tra từng bit bằng cách lấy từng bit đó AND với 1, sau đó hiển thị lần lượt các kết quả ta sẽ được byte ban đầu muốn đọc.
   -  Set pin lên mức low/high: Với 1 PORT gồm 8 pin, hàm pinHigh có tham số truyền vào là pin muốn set, được thực hiện bằng thao tác OR và dịch bit, dịch bit sẽ giúp ta tìm được chỗ pin muốn set, OR với 1 để set pin dó lên mức HIGH. Tương tự với hàm pinLow, ta sẽ set dùng XOR và dịch bit 128, dịch bit 128 giúp tìm được nơi muốn set, XOR giúp đảo trạng thái và OR lại với nhau
   -  hàm digitalWrite: sẽ giúp ta có thể set bất kì 1 bit nào mong muốn lên mức HIGH hoặc LOW với tham số truyền là Pin (chân pin muôn set)và trạng thái(HIGH/LOW)
-
-
-
+# **Struct - Union**
+- **_Struct:_** là kiểu dữ liệu do người dùng tự định nghĩa, dữ liệu của các member sẽ được lưu trữ ở các vùng nhớ khác nhau. Do đó, kích thước của 1 struct sẽ bằng tổng kích thước của các member và bộ nhớ đệm.
+	- Ví dụ:
+	```C
+	static typeDate
+	{
+		int ngay;
+		int thang;
+		int nam;
+	}
+	```
+- **_Union:_** là kiểu dữ liệu do người dùng tự dịnh nghĩa. Dữ liệu của các member sẽ dùng chung 1 bộ nhớ. Kích thước của union là kích thước của member lớn nhất.
+	-Ví dụ:
+	```C
+	union typeData {
+		int a;
+		double b;
+		float c;
+	}
+	```
+# **Static** 
+- **_Static toàn cục:_**  chỉ truy cập và sử dụng trong File khai báo nó, các File khác sẽ không thể truy cập được.
+- **_Static cục bộ:_** chỉ khởi tạo 1 lần và tồn tại suốt thời thời gian chạy chương trình. Giá trị không mất đi khi kết thúc hàm, tuy nhiên biến static cục bộ chỉ có thể được gọi trong hàm khởi tạo nó, giá trị của biến chính bằng giá trị gần nhất mà nó được gọi.
+- Ngoài ra, còn có `extern` để thông báo biến đã được khai báo ở file khác.
+# **Pointer** 
+-  **_Khái niệm:_** con trỏ (pointer) là những biến dùng để lưu trữ địa chỉ
+-  Ví dụ khởi tạo biến con trỏ: `uint8_t *ptr;`
+-  **_Con trỏ NULL:_** là con trỏ lưu trữ địa chỉ 0x00, tức là cho biết nó không trỏ vào đâu cả. Khi khởi tạo 1 con trỏ cần phải gắn cho nó 1 địa chỉ ngay, hoặc khi chưa cần dùng đến thì phải gắn nó là NULL, tại vì khi khởi tạo 1 con trỏ không gắn thì nó sẽ tự gắn cho nó 1 địa chỉ bất kì.
+	- Ví dụ: ` uint8_t *ptr = NULL;`
+- **_Con trỏ hàm:_** 
+	- Khai báo con trỏ hàm: kiểu dữ liệu trả về + tên con trỏ hàm + input parameter
+		Ví dụ : `void (*ptr)(int,int) = NULL;`
+	- Thông qua con trỏ hàm có thể lấy 1 hàm làm input parameter của hàm khác.
+		Ví dụ: 
+		```C
+		void hienthi(int a, int b, void (*tong)(int,int))
+			{
+				...
+			}
+		```
+- **_Pointer to pointer:_** là 1 con trỏ có giá trị là 1 địa chỉ của 1 pointer	
+	- Khai báo: `int **ptr;`
 
