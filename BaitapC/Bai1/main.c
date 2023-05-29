@@ -47,7 +47,7 @@ void lietke(uint8_t n, uint8_t arr[])
 void daochuoi(uint8_t length, char chuoi[])
 {
     int count = 0;
-    for (int i = length - 1; i >= 0; i--)
+    for (int i = length; i >= 0; i--)
     {
         if (chuoi[i] != ' ')
         {
