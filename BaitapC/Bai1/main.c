@@ -68,7 +68,6 @@ void daochuoi(uint8_t length, char chuoi[])
             {
                 printf("%c", chuoi[j]);
             }
-            printf(" ");
             count = 0;
         }
     }
