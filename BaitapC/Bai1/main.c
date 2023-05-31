@@ -58,7 +58,6 @@ void daochuoi(uint8_t length, char chuoi[])
                 {
                     printf("%c", chuoi[j]);
                 }
-                printf(" ");
                 count = 0;
             }
         }
@@ -68,6 +67,7 @@ void daochuoi(uint8_t length, char chuoi[])
             {
                 printf("%c", chuoi[j]);
             }
+            printf(" ");
             count = 0;
         }
     }
@@ -77,7 +77,7 @@ int main(int argc, char const *argv[])
 {
     /* code */
 
-    char chuoi[] = "Rat vui khi duoc lam quen voi moi nguoi";
+    char chuoi[] = "Xin Chao ban Rat vui khi duoc lam quen";
     uint8_t length = sizeof(chuoi) / sizeof(char);
     printf("%d\n", length);
     daochuoi(length, chuoi);
