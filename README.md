@@ -101,3 +101,88 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
 - **_Pointer to pointer:_** là 1 con trỏ có giá trị là 1 địa chỉ của 1 pointer	
 	- Khai báo: `int **ptr;`
 
+# **Class** 
+-  **_Khái niệm:_** class (lớp) là một mô tả trừu tượng của nhóm các đối tượng (object) có cùng bản chất, mỗi object là một thể  hiện cụ thể (instance) cho những mô tả trừu tượng đó.
+- **_Một class sẽ bao gồm:_** 
+	- Các dữ liệu (Property) và các phương thức (method).
+   	- Class giống như struct cũng là kiểu dữ liệu do người dùng tự định nghĩa.
+ - **_Method:_** giống như một hàm bình thường, có 2 cách định nghĩa:
+   	+ Định nghĩa bên trong class:
+   	```C
+   	class LopHoc{
+	public:
+   	int siso;
+   	int lop;
+	void Hienthi(){
+	cout<<"Lop "<<siso<<" siso la "<<siso<<endl;
+	}
+	}
+	```
+ 	+ Định nghĩa bên ngoài class:
+	```C
+ 	class SinhVien{
+	public:
+ 	void hienthi();
+  	private:
+   	int tuoi;
+    	int mssv;
+ 	}
+  	void SinhVien::hienthi(){
+		cout<<"tuoi "<<tuoi<<endl;
+  		cout<<"mssv "<<mssv<<endl;
+    	}
+     	```
+- **_Khai báo Class và Cách sử dụng Class:_** 
+	- Khai báo Class: 
+	Ví dụ :
+	```C
+	class SinhVien{
+  	public:
+      	void hienthi();
+	private:
+       	int tuoi;
+		int MSSV;
+	}
+	```
+	- Sử dụng Class:
+		Ví dụ: 
+		```C
+		SinhVien sv;
+  		sv.hienthi();
+			
+		```
+# **Phạm vi truy cập của Class** 
+- Có 3 phạm vi truy cập trong C++ là public, pivate và protected.
+	+ Public: các property và method có thể được truy cập trực tiếp thông qua instance của class đó. Khai báo thuộc tính bằng public khi không có ràng buộc điều kiện trước khi gán hoặc không cần xử lý trước khi trả về giá trị thuộc tính.
+ 	+ Private: được sử dụng khi không muốn người khác có thể tùy ý gán giá trị hoặc muốn xử lý trước khi trả về giá trị.
+  	+ Protected: các property và method chỉ có thể truy cập được thông qua class con. 
+	Ví dụ:
+	```C
+ 	class Doituong
+	{
+		public:
+			int tuoi;
+		private:
+			int lop;
+	};
+# **Constructor** 
+- Tên của constructor sẽ trùng với tên class, nằm ở public, có thể có tham số đầu vào hoặc không cần tham số đầu vào, nó sẽ được chạy đầu tiên khi khởi tạo 1 object.
+	```C
+ 	class Doituong
+	{
+		public:
+  			DoiTuong(int tuoi, int lop);
+			int tuoi;
+		private:
+			int lop;
+	};
+
+ # **Static trong class** 
+- Static member sẽ là thuộc tính dùng chung cho tất cả các object của class đó. Tức là khi khai báo nhiều object, mỗi object sẽ có các thuộc tính khác nhau nhưng static chỉ có một và tồn tại trong suốt chương trình. hay ngắn gọn là các objcet sẽ dùng chung một biến static.
+
+ # **Các đặc tính của OOP**
+ - Tính kế thừa: một class có thể kế thừa các thuộc tính từ một class khác đã tồn tại trước đó.
+ - Tính đa hình: là một khả năng mà một method trong class sẽ trả về các kết quả khác nhau tùy vào các dữ liệu được xử lý.
+ - Tính trừu tượng: là khả năng xử lý một đối tượng bằng cách gọi tên một method và thu về kết quả được xử lý mà không cần biết làm cách nào mà đối tượng có thể thao tác được.
+ - Tính đóng gói: dữ liệu và thông tin sẽ được đóng gói lại, không cho người dùng có thể thay đổi đối tượng đó, nên sẽ đảm báo tính trọn vẹn của đối tượng.
+ 
