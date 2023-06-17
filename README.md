@@ -185,4 +185,20 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
  - Tính đa hình: là một khả năng mà một method trong class sẽ trả về các kết quả khác nhau tùy vào các dữ liệu được xử lý.
  - Tính trừu tượng: là khả năng xử lý một đối tượng bằng cách gọi tên một method và thu về kết quả được xử lý mà không cần biết làm cách nào mà đối tượng có thể thao tác được.
  - Tính đóng gói: dữ liệu và thông tin sẽ được đóng gói lại, không cho người dùng có thể thay đổi đối tượng đó, nên sẽ đảm báo tính trọn vẹn của đối tượng.
- 
+
+  # **Template trong C++**
+  - Template là 1 từ khóa trong C++, là một kiểu dữ liệu trừu tượng tổng quát cho các kiểu dữ liệu cơ bản int, double, float,...
+  - Template được sử dụng khi các hàm gần giống nhau, tương tự nhau, chỉ khác các kiểu dữ liệu input hay kiểu trả về.
+
+  # **Namespace trong C++**
+  - Namespace được sử dụng để phân biệt các hàm, class, biến... có cùng tên trong các thư viện khác nhau.
+    ```C
+    namespace ConOngA{
+    	int A = 10;
+     }
+    namespace ConOngB{
+ 		int A = 20
+     }
+    ```
+  # **Vector**
+  
