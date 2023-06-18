@@ -177,20 +177,20 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
 			int lop;
 	};
 
- # **Static trong class** 
+# **Static trong class** 
 - Static member sẽ là thuộc tính dùng chung cho tất cả các object của class đó. Tức là khi khai báo nhiều object, mỗi object sẽ có các thuộc tính khác nhau nhưng static chỉ có một và tồn tại trong suốt chương trình. hay ngắn gọn là các objcet sẽ dùng chung một biến static.
 
- # **Các đặc tính của OOP**
+# **Các đặc tính của OOP**
  - Tính kế thừa: một class có thể kế thừa các thuộc tính từ một class khác đã tồn tại trước đó.
  - Tính đa hình: là một khả năng mà một method trong class sẽ trả về các kết quả khác nhau tùy vào các dữ liệu được xử lý.
  - Tính trừu tượng: là khả năng xử lý một đối tượng bằng cách gọi tên một method và thu về kết quả được xử lý mà không cần biết làm cách nào mà đối tượng có thể thao tác được.
  - Tính đóng gói: dữ liệu và thông tin sẽ được đóng gói lại, không cho người dùng có thể thay đổi đối tượng đó, nên sẽ đảm báo tính trọn vẹn của đối tượng.
 
-  # **Template trong C++**
+# **Template trong C++**
   - Template là 1 từ khóa trong C++, là một kiểu dữ liệu trừu tượng tổng quát cho các kiểu dữ liệu cơ bản int, double, float,...
   - Template được sử dụng khi các hàm gần giống nhau, tương tự nhau, chỉ khác các kiểu dữ liệu input hay kiểu trả về.
 
-  # **Namespace trong C++**
+# **Namespace trong C++**
   - Namespace được sử dụng để phân biệt các hàm, class, biến... có cùng tên trong các thư viện khác nhau.
     ```C
     namespace ConOngA{
@@ -200,7 +200,7 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
  		int A = 20
      }
     ```
-  # **Vector**
+# **Vector**
   - Giống với mảng, vector là một đối tượng để chứa các đối tượng khác, các đối tượng được chứa này được lưu trữ một cách liên tiếp.
   - Kích thước của vector có thể thay đổi được trong quá trình thực hiện chương trình.
   - Ví dụ khởi tạo 1 vector:
@@ -213,7 +213,7 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
    	+ ersare(): xóa các phần tử tùy theo vị trí vùng chứa.
    	+ clear(): loại bỏ tất cả các phần tử của vùng chứa vector.
 
-  # **For cải tiến trong C++**
+# **For cải tiến trong C++**
   ```C
   for(auto item : array){
 	.....
@@ -222,7 +222,7 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
 - Vị trí đầu tiên sẽ được gán vào item, sau đó sẽ vào vòng lặp, thực hiện xong thì array sẽ dịch sang phải, sẽ tiếp tục gán array vào item.
 - Từ khóa auto được dùng khi chưa xác định được kiểu dữ liệu.
 
-  # **Linked List**
+# **Linked List**
   - Sẽ bao gồm các Node, mỗi Node sẽ có địa chỉ node, và trong Node sẽ chưa giá trị và 1 con trỏ trỏ tới địa chỉ của một Node khác.
   - Lợi ích : giúp chèn hoặc xóa các phần tử cho mảng một cách dễ dàng và nhanh chóng
   - Thư viện sử dụng `#include <list>;` sẽ có các method giống với vector.
