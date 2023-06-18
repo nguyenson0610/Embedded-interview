@@ -201,4 +201,30 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
      }
     ```
   # **Vector**
+  - Giống với mảng, vector là một đối tượng để chứa các đối tượng khác, các đối tượng được chứa này được lưu trữ một cách liên tiếp.
+  - Kích thước của vector có thể thay đổi được trong quá trình thực hiện chương trình.
+  - Ví dụ khởi tạo 1 vector:
+    	` vector<int> array;`
+  - Một số method trong vector:
+	+ push_back(): hàm đẩy một phần tử vào vị trí sau cùng của vector.
+  	+ assign(): gán một giá trị mới cho các phần tử vector bằng cách thay thế các giá trị cũ.
+   	+ pop.back(): xóa đi phần tử cuối cùng của một vector.
+   	+ insert(): chèn các phần tử mới vào trước phần tử được trỏ bởi vòng lặp.
+   	+ ersare(): xóa các phần tử tùy theo vị trí vùng chứa.
+   	+ clear(): loại bỏ tất cả các phần tử của vùng chứa vector.
+
+  # **For cải tiến trong C++**
+  ```C
+  for(auto item : array){
+	.....
+  }
+  ```
+- Vị trí đầu tiên sẽ được gán vào item, sau đó sẽ vào vòng lặp, thực hiện xong thì array sẽ dịch sang phải, sẽ tiếp tục gán array vào item.
+- Từ khóa auto được dùng khi chưa xác định được kiểu dữ liệu.
+
+  # **Linked List**
+  - Sẽ bao gồm các Node, mỗi Node sẽ có địa chỉ node, và trong Node sẽ chưa giá trị và 1 con trỏ trỏ tới địa chỉ của một Node khác.
+  - Lợi ích : giúp chèn hoặc xóa các phần tử cho mảng một cách dễ dàng và nhanh chóng
+  - Thư viện sử dụng `#include <list>;` sẽ có các method giống với vector.
+  - Thư viện <map> sẽ bao gồm 2 thông số Key và Value.`map<string,int> SinhVien;`
   
