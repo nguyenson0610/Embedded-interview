@@ -1,5 +1,4 @@
 #include <iostream>
-
 class Circle{
     private:
         uint8_t BanKinh;
