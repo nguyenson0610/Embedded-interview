@@ -1,3 +1,9 @@
+/*
+* File: NhaHang.h
+* Author: Nguyen Hoang Son
+* Date: 11/07/2023
+* Description: This is a NhaHang.h file for restaurant management
+*/
 #ifndef __NHAHANG_H__
 #define __NHAHANG_H__
 #include <stdio.h>
@@ -6,82 +12,102 @@
 
 using namespace std;
 
-class MonAn
+/************************************Class Dish**************************************/
+/*
+* Class: Dish
+* Description: include properties and methods of class Dish
+*/
+class Dish
 {
 private:
     int ID;
-    string TEN;
-    float GIA;
+    string Name;
+    float Price;
 
 public:
-    MonAn();
-    void setTen(string ten);
-    void setGia(float gia);
+    Dish();
+    void setName(string name);
+    void setPrice(float price);
     int getID();
-    string getTen();
-    float getGia();
-    void HienThi();
+    string getName();
+    float getPrice();
+    void Display();
 };
 
-class QuanLy
+/************************************Class Manager**************************************/
+/*
+* Class: Manager
+* Description: include properties and methods of class Manager
+*/
+class Manager
 {
 private:
     int choose;
-    string TEN;
-    float GIA;
-    int soBan;
-    list<MonAn> Database;
-    void ThucHien();
-    void ThemMon();
-    void SuaMon();
-    void HienthiDS();
-    void XoaMon();
-    void ThietLapSoBan();
+    string NAME;
+    float PRICE;
+    int tableNumber;
+    list<Dish> Database;
+    void Perform();
+    void addDish();
+    void fixDish();
+    void displayDishList();
+    void deleteDish();
+    void setTableNumber();
 
 public:
-    QuanLy();
-    int getSoBan();
-    list<MonAn> getDatabase();
+    Manager();
+    int getTableNumber();
+    list<Dish> getDatabase();
 };
 
-class ThongTinBan
+/************************************Class TableInfomation**************************************/
+/*
+* Class: TableInfomation
+* Description: include properties and methods of class TableInfomation
+*/
+class TableInfomation
 {
 private:
-    int soBan;
-    bool trangthai;
+    int numberTable;
+    bool status;
     typedef struct
     {
-        MonAn Mon_An;
-        int soLuong;
+        Dish dish;
+        int quantity;
 
-    } TypeMon;
-    list<TypeMon> Database_MonAn;
+    } TypeDish;
+    list<TypeDish> Database_Dish;
 
 public:
-    ThongTinBan(int soBan, bool trangThai);
-    int getSoBan();
-    void setTrangThai(bool TrangThai);
-    bool getTrangThai();
-    void DanhSachMon();
-    void ThemMon();
-    void SuaMon();
-    void XoaMon();
-    void ThanhToan();
+    TableInfomation(int numberTable, bool status);
+    int getnumberTable();
+    void setStatus(bool TrangThai);
+    bool getStatus();
+    void DishList();
+    void addDish();
+    void fixDish();
+    void deleteDish();
+    void Pay();
 };
 
-class NhanVien
+/************************************Class Staff**************************************/
+/*
+* Class: Staff
+* Description: include properties and methods of class Staff
+*/
+class Staff
 {
 private:
-    list<MonAn> DATABASE_MON_AN;
-    list<ThongTinBan> DATABASE_BAN;
-    void themmon();
-    void suamon();
-    void xoamon();
-    void thanhtoan();
-    void LuachonBan();
+    list<Dish> DATABASE_DISH;
+    list<TableInfomation> DATABASE_TABLE;
+    void addDish();
+    void fixDish();
+    void deleteDish();
+    void Pay();
+    void choiceTable();
 
 public:
-    NhanVien(list<MonAn> database, int soban);
+    Staff(list<Dish> database, int tableNumber);
 };
 
 #endif
