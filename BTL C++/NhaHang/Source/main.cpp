@@ -1,5 +1,11 @@
-#include "NhaHang.h"
+/*
+* File: main.cpp
+* Author: Nguyen Hoang Son
+* Date: 11/07/2023
+* Description: This is a main.cpp file for restaurant management
+*/
 
+#include "NhaHang.h"
 
 int main(int argc, char const *argv[])
 {
@@ -18,10 +24,10 @@ int main(int argc, char const *argv[])
         cout << "Da ket thuc chuong trinh";
         break;
     case 1:
-        QuanLy quanly;
+        Manager manager;
         break;
     case 2:
-        NhanVien nhanvien;
+        Staff staff;
         break;
     default:
         cout << "Ban da nhap sai";
