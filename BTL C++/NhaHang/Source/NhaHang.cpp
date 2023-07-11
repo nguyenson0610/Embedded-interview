@@ -1,48 +1,101 @@
+/*
+* File: NhaHang.cpp
+* Author: Nguyen Hoang Son
+* Date: 11/07/2023
+* Description: This is a NhaHang.cpp file for restaurant management
+*/
 #include "NhaHang.h"
 
-// Mon An
-MonAn::MonAn()
+/*
+* Class: Dish
+* Description: initialize ID value and increment when initialized
+*/
+Dish::Dish()
 {
     static int id = 100;
     ID = id;
     id++;
 }
 
-int MonAn::getID()
+/*
+* Class: Dish
+* Function: getID
+* Description: this function use for get ID value of a dish
+* Input: Dont have input parameter
+* Output: return the ID value of a dish
+*/
+int Dish::getID()
 {
     return ID;
 }
 
-void MonAn::setTen(string ten)
+/*
+* Class: Dish
+* Function: setName
+* Description: this function use for set name of a dish
+* Input: name - name of dish
+* Output: none
+*/
+void Dish::setName(string name)
 {
-    MonAn::TEN = ten;
+    Dish::Name = name;
 }
 
-string MonAn::getTen()
+/*
+* Class: Dish
+* Function: getName
+* Description: this function use for get name of a dish
+* Input: Dont have input parameter
+* Output: return name of a dish
+*/
+string Dish::getName()
 {
-    return MonAn::TEN;
+    return Dish::Name;
 }
 
-void MonAn::setGia(float gia)
+/*
+* Class: Dish
+* Function: setPrice
+* Description: this function use for set price of a dish
+* Input: price - price of a dish
+* Output: none
+*/
+void Dish::setPrice(float price)
 {
-    MonAn::GIA = gia;
+    Dish::Price = price;
 }
 
-float MonAn::getGia()
+/*
+* Class: Dish
+* Function: getPrice
+* Description: this function use for get price of a dish
+* Input: Dont have input parameter
+* Output: return price of a dish
+*/
+float Dish::getPrice()
 {
-    return MonAn::GIA;
+    return Dish::Price;
 }
 
-void MonAn::HienThi()
+/*
+* Class: Dish
+* Function: Display
+* Description: this function use for display list of dishes
+* Input: Dont have input parameter
+* Output: none
+*/
+void Dish::Display()
 {
     cout << "-----------------------" << endl;
     cout << " ID     Ten          Gia  " << endl;
-    cout << " " << MonAn::getID() << "      " << MonAn::getTen() << "     " << MonAn::getGia() << endl;
+    cout << " " << Dish::getID() << "      " << Dish::getName() << "     " << Dish::getPrice() << endl;
 }
 
-//    Quan ly
-
-QuanLy::QuanLy()
+/*
+* Class: Manager
+* Description: choice methods
+*/
+Manager::Manager()
 {
     cout << "    QUAN LY" << endl;
     cout << " 1. Them mon" << endl;
@@ -62,44 +115,58 @@ QuanLy::QuanLy()
     switch (key)
     {
     case 1:
-        ThemMon();
+        addDish();
         break;
     case 2:
-        SuaMon();
+        fixDish();
         break;
     case 3:
-        XoaMon();
+        deleteDish();
         break;
     case 4:
-        HienthiDS();
+        displayDishList();
         break;
     case 5:
-        ThietLapSoBan();
+        setTableNumber();
         break;
     case 0:
-        QuanLy();
+        Manager();
         break;
     }
 }
 
-list<MonAn> QuanLy::getDatabase()
+/*
+* Class: Manger
+* Function: getDatabase
+* Description: this function use for get database of dishes
+* Input: Dont have input parameter
+* Output: return database of dishes
+*/
+list<Dish> Manager::getDatabase()
 {
     return this->Database;
 }
 
-void QuanLy::ThemMon()
+/*
+* Class: Manager
+* Function: addDish
+* Description: this function use for add dishes
+* Input: Dont have input parameter
+* Output: none
+*/
+void Manager::addDish()
 {
-    MonAn Mon;
-    string ten;
+    Dish dish;
+    string name;
     cout << "--------------------------" << endl;
     cout << " Nhap ten mon la ";
-    cin >> ten;
-    Mon.setTen(ten);
-    float gia;
+    cin >> name;
+    dish.setName(name);
+    float price;
     cout << " Nhap gia = ";
-    cin >> gia;
-    Mon.setGia(gia);
-    Database.push_back(Mon);
+    cin >> price;
+    dish.setPrice(price);
+    Database.push_back(dish);
     int type;
     cout << "    " << endl;
     cout << "    Lua chon" << endl;
@@ -109,30 +176,44 @@ void QuanLy::ThemMon()
     cin >> type;
     if (type == 1)
     {
-        QuanLy::ThemMon();
+        Manager::addDish();
     }
     else if (type == 0)
     {
-        QuanLy::HienthiDS();
-        QuanLy();
+        Manager::displayDishList();
+        Manager();
     }
 }
 
-void QuanLy::HienthiDS()
+/*
+* Class: Manager
+* Function: displayDishList
+* Description: this function use for display list of dishes
+* Input: Dont have input parameter
+* Output: none
+*/
+void Manager::displayDishList()
 {
     int STT = 1;
     cout << "-----------------------" << endl;
     cout << "  STT   ID     Ten          Gia  " << endl;
     for (auto item : Database)
     {
-        cout << "  " << STT << "  " << item.getID() << "      " << item.getTen() << "     " << item.getGia() << endl;
+        cout << "  " << STT << "  " << item.getID() << "      " << item.getName() << "     " << item.getPrice() << endl;
         STT++;
     }
 }
 
-void QuanLy::SuaMon()
+/*
+* Class: Manager
+* Function: fixDish
+* Description: this function use for fix of a dish includes: price or name
+* Input: Dont have input parameter
+* Output: none
+*/
+void Manager::fixDish()
 {
-    QuanLy::HienthiDS();
+    Manager::displayDishList();
 
     int ID;
     cout << "Nhap ID = ";
@@ -150,13 +231,13 @@ void QuanLy::SuaMon()
         {
             if (item.getID() == ID)
             {
-                string changeTen;
+                string changeName;
                 cout << " Nhap ten thay doi: ";
-                cin >> changeTen;
-                item.setTen(changeTen);
+                cin >> changeName;
+                item.setName(changeName);
                 cout << " Ban da doi ten thanh cong" << endl;
-                QuanLy::HienthiDS();
-                QuanLy();
+                Manager::displayDishList();
+                Manager();
             }
         }
     }
@@ -166,29 +247,36 @@ void QuanLy::SuaMon()
         {
             if (item.getID() == ID)
             {
-                float changeGia;
+                float changePrice;
                 cout << " Nhap gia thay doi: ";
-                cin >> changeGia;
-                item.setGia(changeGia);
+                cin >> changePrice;
+                item.setPrice(changePrice);
                 cout << " Ban da doi gia thanh cong" << endl;
-                QuanLy::HienthiDS();
-                QuanLy();
+                Manager::displayDishList();
+                Manager();
             }
         }
     }
     else if (index == 0)
     {
-        QuanLy();
+        Manager();
     }
 }
 
-void QuanLy::XoaMon()
+/*
+* Class: Manager
+* Function: deleteDish
+* Description: this function use for delete of a dish includes: price and name
+* Input: Dont have input parameter
+* Output: none
+*/
+void Manager::deleteDish()
 {
-    QuanLy::HienthiDS();
+    Manager::displayDishList();
     int ID;
     cout << "Nhap ID = ";
     cin >> ID;
-    list<MonAn>::iterator position = Database.begin();
+    list<Dish>::iterator position = Database.begin();
 
     for (auto item : Database)
     {
@@ -198,126 +286,197 @@ void QuanLy::XoaMon()
             Database.erase(position);
         }
     }
-    QuanLy::HienthiDS();
-    QuanLy();
+    Manager::displayDishList();
+    Manager();
 }
 
-void QuanLy::ThietLapSoBan()
+/*
+* Class: Manager
+* Function: setTableNumber
+* Description: this function use for set the table number
+* Input: Dont have input parameter
+* Output: none
+*/
+void Manager::setTableNumber()
 {
     cout << "" << endl;
     cout << " 1. Nhap so ban" << endl;
     cout << " 0. Quay lai" << endl;
-    int soBan;
+    int tableNumber;
     cout << "Nhap lua chon: " << endl;
-    cin >> soBan;
-    if (soBan == 1)
+    cin >> tableNumber;
+    if (tableNumber == 1)
     {
         cout << "Nhap so ban = " << endl;
-        cin >> soBan;
-        QuanLy();
+        cin >> tableNumber;
+        Manager();
     }
-    else if (soBan == 0)
+    else if (tableNumber == 0)
     {
-        QuanLy();
+        Manager();
     }
 }
 
-int QuanLy::getSoBan()
+/*
+* Class: Manager
+* Function: getTableNumber
+* Description: this function use for get number of a table
+* Input: Dont have input parameter
+* Output: return number of a table
+*/
+int Manager::getTableNumber()
 {
-    return soBan;
+    return tableNumber;
 }
 
-// Thong Tin Ban
-
-void ThongTinBan::DanhSachMon()
+/*
+* Class: TableInfomation
+* Function: DishList
+* Description: this function use for display list of dishes
+* Input: Dont have input parameter
+* Output: none
+*/
+void TableInfomation::DishList()
 {
     cout << "Danh Sach mon an la" << endl;
-    for (auto item : Database_MonAn)
+    for (auto item : Database_Dish)
     {
-        cout << " " << item.Mon_An.getTen() << endl;
+        cout << " " << item.dish.getName() << endl;
     }
 }
 
-void ThongTinBan::ThanhToan(){
-    float TongTien = 0;
+/*
+* Class: TableInfomation
+* Function: Pay
+* Description: this function use for pay the bill
+* Input: Dont have input parameter
+* Output: none
+*/
+void TableInfomation::Pay(){
+    float Total = 0;
     cout<<"Tong gia tien: "<<endl;
-    for (auto item : Database_MonAn)
+    for (auto item : Database_Dish)
     {
 
-        TongTien += item.Mon_An.getGia() * item.soLuong;
+        Total += item.dish.getPrice() * item.quantity;
     }
     
 }
 
-void ThongTinBan::ThemMon()
+/*
+* Class: TableInfomation
+* Function: addDish
+* Description: this function use for add a dish at this table
+* Input: Dont have input parameter
+* Output: none
+*/
+void TableInfomation::addDish()
 {
-    MonAn mon;
-    int soLuong;
+    Dish dish;
+    int quantity;
     cout << "So luong = ";
-    cin >> soLuong;
-    TypeMon MON;
-    MON.Mon_An = mon;
-    MON.soLuong = soLuong;
-    Database_MonAn.push_back(MON);
+    cin >> quantity;
+    TypeDish DISH;
+    DISH.dish = dish;
+    DISH.quantity = quantity;
+    Database_Dish.push_back(DISH);
 }
 
-void ThongTinBan::SuaMon()
+/*
+* Class: TableInfomation
+* Function: fixDish
+* Description: this function use for fix a dish at this table
+* Input: Dont have input parameter
+* Output: none
+*/
+void TableInfomation::fixDish()
 {
-    int soLuong;
+    int quantity;
     int id;
     cout << "Nhap id = ";
     cin >> id;
-    for (auto item : Database_MonAn)
+    for (auto item : Database_Dish)
     {
-        if (item.Mon_An.getID() == id)
+        if (item.dish.getID() == id)
         {
             cout << "Nhap so luong = ";
-            cin >> soLuong;
-            item.soLuong = soLuong;
+            cin >>quantity;
+            item.quantity = quantity;
         }
     }
 }
 
-void ThongTinBan::XoaMon()
+/*
+* Class: TableInfomation
+* Function: deleteDish
+* Description: this function use for delete a dish at this table
+* Input: Dont have input parameter
+* Output: none
+*/
+void TableInfomation::deleteDish()
 {
     int id;
     cout << "Nhap id = ";
     cin >> id;
-    auto position = Database_MonAn.begin();
-    for (auto item : Database_MonAn)
+    auto position = Database_Dish.begin();
+    for (auto item : Database_Dish)
     {
-        if (item.Mon_An.getID() == id)
+        if (item.dish.getID() == id)
         {
-            Database_MonAn.erase(position);
+            Database_Dish.erase(position);
         }
         position++;
     }
 }
 
-int ThongTinBan::getSoBan()
+/*
+* Class: TableInfomation
+* Function: getnumberTable
+* Description: this function use for number table
+* Input: Dont have input parameter
+* Output: return number of table
+*/
+int TableInfomation::getnumberTable()
 {
-    return soBan;
+    return numberTable;
 }
 
-void ThongTinBan::setTrangThai(bool TrangThai)
+/*
+* Class: TableInfomation
+* Function: setStatus
+* Description: this function use for set status of a table
+* Input: Dont have input parameter
+* Output: none
+*/
+void TableInfomation::setStatus(bool status)
 {
-    trangthai = TrangThai;
+    TableInfomation::status = status;
 }
 
-bool ThongTinBan::getTrangThai()
+/*
+* Class: TableInfomation
+* Function: getStatus
+* Description: this function use for get status of a table
+* Input: Dont have input parameter
+* Output: return status of a table
+*/
+bool TableInfomation::getStatus()
 {
-    return trangthai;
+    return status;
 }
 
-//Nhan vien
+/*
+* Class: Staff
+* Description: this function use for 
+*/
 
-NhanVien::NhanVien(list<MonAn> database, int soban)
+Staff::Staff(list<Dish> database, int numberTable)
 {
-    DATABASE_MON_AN.assign(database.begin(), database.end());
-    for (int i = 1; i <= soban; i++)
+    DATABASE_DISH.assign(database.begin(), database.end());
+    for (int i = 1; i <= numberTable; i++)
     {
-        ThongTinBan ban(i, false);
-        DATABASE_BAN.push_back(ban);
+        TableInfomation table(i, false);
+        DATABASE_TABLE.push_back(table);
     }
 
     cout << " Lua chon trong phan Nhan vien" << endl;
@@ -330,14 +489,21 @@ NhanVien::NhanVien(list<MonAn> database, int soban)
     cout << "" << endl;
 }
 
-void NhanVien::LuachonBan()
+/*
+* Class: Staff
+* Function: choiceTable
+* Description: this function use for choice a table
+* Input: Dont have input parameter
+* Output: none
+*/
+void Staff::choiceTable()
 {
-    int soBan;
+    int numbertable;
     cout << "Nhap so ban = ";
-    cin >> soBan;
-    for (auto item : DATABASE_BAN)
+    cin >> numbertable;
+    for (auto item : DATABASE_TABLE)
     {
-        item.getSoBan() == soBan;
+        item.getnumberTable() == numbertable;
         int key;
         do
         {
@@ -347,19 +513,16 @@ void NhanVien::LuachonBan()
         switch (key)
         {
         case 1:
-            themmon();
+            addDish();
             break;
         case 2:
-            suamon();
+            fixDish();
             break;
         case 3:
-            xoamon();
+            deleteDish();
             break;
         case 4:
-            xoamon();
-            break;
-        case 5:
-            thanhtoan();
+            Pay();
             break;
         default:
             break;
@@ -367,65 +530,91 @@ void NhanVien::LuachonBan()
     }
 }
 
-void NhanVien::themmon()
+/*
+* Class: Staff
+* Function: choiceTable
+* Description: this function use for add dish at a table
+* Input: Dont have input parameter
+* Output: none
+*/
+void Staff::addDish()
 {
-    int soBan;
+    int numberTable;
     cout << "Nhap so ban = ";
-    cin >> soBan;
-    for (auto item : DATABASE_BAN)
+    cin >> numberTable;
+    for (auto item : DATABASE_TABLE)
     {
-        if (item.getSoBan() == soBan)
+        if (item.getnumberTable() == numberTable)
         {
-            item.ThemMon();
+            item.addDish();
         }
     }
 }
 
-void NhanVien::suamon()
+/*
+* Class: Staff
+* Function: fixDish
+* Description: this function use for fix dish at a table
+* Input: Dont have input parameter
+* Output: none
+*/
+void Staff::fixDish()
 {
-    int soBan;
+    int numberTable;
     cout << "Nhap so ban = ";
-    cin >> soBan;
-    for (auto item : DATABASE_BAN)
+    cin >> numberTable;
+    for (auto item : DATABASE_TABLE)
     {
-        if (item.getSoBan() == soBan)
+        if (item.getnumberTable() == numberTable)
         {
             int id;
             cout << "Nhap id mon an: ";
             cin >> id;
-            item.SuaMon();
+            item.fixDish();
         }
     }
 }
 
-void NhanVien::xoamon()
+/*
+* Class: Staff
+* Function: deleteDish
+* Description: this function use for delete dish at a table
+* Input: Dont have input parameter
+* Output: none
+*/
+void Staff::deleteDish()
 {
-    int soBan;
+    int numberTable;
     cout << "Nhap so ban = ";
-    cin >> soBan;
-    for (auto item : DATABASE_BAN)
+    cin >> numberTable;
+    for (auto item : DATABASE_TABLE)
     {
-        if (item.getSoBan() == soBan)
+        if (item.getnumberTable() == numberTable)
         {
-            item.XoaMon();
+            item.deleteDish();
         }
     }
 }
 
-void NhanVien::thanhtoan()
+/*
+* Class: Staff
+* Function: Pay
+* Description: this function use for pay bill at a table
+* Input: Dont have input parameter
+* Output: none
+*/
+void Staff::Pay()
 {
-    int soBan;
+    int numberTable;
     cout << "Nhap so ban = ";
-    cin >> soBan;
-    for (auto item : DATABASE_BAN)
+    cin >> numberTable;
+    for (auto item : DATABASE_TABLE)
     {
-        if (item.getSoBan() == soBan)
+        if (item.getnumberTable() == num_put)
         {
             
-            item.DanhSachMon();
-            item.ThanhToan();
+            item.DishList();
+            item.Pay();
         }
     }
 }
-
-
