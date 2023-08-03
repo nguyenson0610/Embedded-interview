@@ -227,4 +227,65 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
   - Lợi ích : giúp chèn hoặc xóa các phần tử cho mảng một cách dễ dàng và nhanh chóng
   - Thư viện sử dụng `#include <list>;` sẽ có các method giống với vector.
   - Thư viện <map> sẽ bao gồm 2 thông số Key và Value.`map<string,int> SinhVien;`
+
+# **Embedded**
+**_Giao thức SPI:_**
+- Là 1 chuẩn giao tiếp nối tiếp tốc độ cao.
+  + Các bit dữ liệu được truyền nối tiếp và có xung clock đồng bộ.
+  + Giao tiếp song công, có thể truyền và nhận tại cùng một thời điểm.
+  + Khoảng cách truyền ngắn, tốc độ truyền khoảng vài Mb/s.
+  + Có thể chỉ gồm 1 master và 1 slave, hoặc 1 master và nhiều slave.
+- SPI gồm có 4 đường tín hiệu:
+  + SCK: xung clock
+  + MOSI: Master Out, Slave In
+  + MISO: Master In, Slave Out
+  + SS: Slave select
+- Cách truyền và nhận tín hiệu
+  + Master và slave đều có 1 thanh ghi dữ liệu 8 bit chứa dữ liệu cần gửi đi hoặc dữ liệu nhận về.
+  + Đối với có nhiều slave, master muốn giao tiếp với slave sẽ thông qua chân SS, để giao tiếp với slave nào thì master sẽ kéo chân SS nối với slave đó xuống thấp, các chân SS nối với các slave khác sẽ ở mức cao.
+  + Cứ mỗi xung nhịp Clock, một bit trong thanh ghi dữ liệu của Master sẽ được truyền qua Slave thông qua chân MOSI, và 1 bit trong thanh ghi dữ liệu trong Slave sẽ được truyền qua Master thông qua chân MISO.
+- Các chế độ hoạt đông: Có 4 chế độ hoạt động sẽ tùy thuộc vào CPOL và CPAL
+  + CPOL:nói về hình dạng xung
+    	* CPOL = 0: đầu tiên hình dạng xung ở mức 0 sau đó lên mức 1 và kéo lại xuống 0.
+    	* SPOL = 1: khi không truyền data sẽ ở mức 1 sau đó kéo xuống 0 và kéo lại lên 1.
+  + CPAL: nói về cách truyền data
+    	* CPAL = 0: đưa bit vào chân truyền trước sau đó cần xung clock để đẩy bit data đi
+    	* CPAL = 1: đưa xung clock trước sau đó mới đưa bit data vào và cần 1 xung clock tiếp theo để đẩy bit data đi.
+
+**_Giao thức I2C:_**
+- Chỉ sử dụng 2 dây: SDA (truyền và nhận data) và SCL (xung Clock)
+- I2C là một giao thức truyền thông nối tiếp vì vậy dữ liệu sẽ được truyền từng bit dọc theo một đường duy nhất ( đường SDA).
+- Khi Master không giao tiếp với Slave thì 2 chân SDA và SCL  sẽ ở mức cao
+- Cách hoạt động của I2C: dữ liệu sẽ được truyền trong các tin nhắn. Tin nhắn sẽ được chia thành các khung dữ liệu. Mỗi tin nhắn sẽ bao gồm điều kiện khởi động, khung địa chỉ ( address frame), read/write bit, ACK/NACK bit, data frame, điều kiện dừng.
+  + Start condition: SDA sẽ chuyển từ mức cao xuống mức thấp sau đó SCL sẽ chuyển tử mức cao xuống thấp
+  + Address frame: gồm 7 hoặc 10 bit để xác định slave khi master muốn giao tiếp với slave đó
+  + Read/Write bit: giúp xác định Master sẽ truyền dữ liệu ( tức là write khi bit này = 0) hay nhận dữ liệu ( tức là read khi bit này = 1)
+  + ACK/NACK bit: khi master truyền 1 byte đến slave, lúc này dây SDA sẽ đổi trạng thái đầu vào ra (MASTER sẽ là đầu vào, SLAVE sẽ là đầu ra) sau đó salve sẽ truyền bit 0 đến master để xác nhận rằng slave đã nhận đủ 1 byte, hoặc truyền bit 1 để thông báo không nhận đủ 1 byte.
+  + Data frame: sau khi nhận được bít ACK từ slave, data sẽ sẵn sàng được gửi đi. khung dữ liệu sẽ có độ dài 8 bit, các bit sẽ được truyền dọc theo dây SDA,  và mỗi khung dữ liệu như vậy sẽ có đi kèm theo bít ACK/NACK để xác nhận rằng có gửi thành công hay không
+  + Stop condition: sau khi đã gửi hết các data, master sẽ gửi một stop bit để dừng quá trình truyền. SCL sẽ chuyển từ mức 0 lên mức 1 sau đó SDA sẽ chuyển tử mức 0 lên 1.
   
+**_Giao thức UART:_**
+- Gồm 2 chân: Tx và Rx, khi không truyền thì cả 2 chân đều kéo lên mức 1
+- Chân Tx của 1 chip sẽ kết nối trức tiếp với chân Rx của chip kia và ngược lại. UART là giao thức một master và một slave.
+- Khi gửi trên chân Tx, UART đầu tiên sẽ dịch thông tin song song này thành nối tiếp và truyền đến thiết bị nhận, UART thứ hai nhận dữ liệu này trên chân Rx của nó và biến đổi nó trở lại thành song song để giao tiếp với thiết bị điều khiển của nó.
+- Có 3 chế độ truyền UART:
+  + Full duplex: Giao tiếp đồng thời đến và đi từ mỗi master và slave
+  + Half duplex: Dữ liệu đi theo một hướng tại một thời điểm
+  + Simplex: Chỉ giao tiếp một chiều
+- Dữ liệu truyền qua UART được tổ chức thành các gói. Mỗi gói chứa 1 bit bắt đầu, 5 đến 9 bit dữ liệu (tùy thuộc vào UART), một bit chẵn lẻ tùy chọn và 1 hoặc 2 bit dừng.
+  + Start bit: 	UART thường ở mức cao khi không truyền tín hiệu. Để truyền tín hiệu, UART truyền sẽ kéo Tx từ cao xuống thấp trong 1 chu kì clock, khi UART nhận thấy được thay đổi đó nó sẽ bắt đầu đọc các bit trong khung dữ liệu
+  + Khung dữ liệu: gồm 5 đến 8 bit nếu có bit chẵn lẻ, hoặc có thể lên đến 9 bit data khi không có bit chẵn lẻ.
+  + Bit chẵn lẻ: để nhận biết có sự thay đổi dữ liệu trong quá trình truyền hay không. Sau khi nhận được khung data, nó sẽ đếm xem thử số bit 1 là bao nhiêu và kiểm tra xem nó là chẵn hay lẻ. Đối với quy tắc số chẵn, nếu tổng bit 1 trong khung data là số chẵn thì bit chẳn/lẻ = 0, và ngược lại. Đối với quy tắc lẻ, nếu tổng bit 1 trong khung data là số chẵn thì bit chẳn/lẻ = 1, và ngược lại
+  + Stop bit: để báo hiệu kết thúc gói dữ liệu. Đối với 1 bit stop, Tx sẽ kéo từ 0 lên 1. Đối với 2 bit stop, Tx sẽ kéo từ 0 lên 1, kéo lại xuống mức 0 sau đó delay, rồi kéo lại lên mức 1.
+
+**_Ngắt (Interrup):_**
+- Ngắt là một sự kiện khẩn cấp, buộc vi điều khiển phải tạm dừng chương trình hiện tại, và phục vụ ngay lập tức nhiệm vụ  mà ngắt yêu cầu.
+- Cần phải có trình phục vụ ngắt (ISR) để đưa ra nhiệm vụ cho vđk khi có ngắt xảy ra.
+- Bảng vector ngắt chứa các ngắt mà ta muốn sử dụng ( bao gồm reset, ngắt ngoài, ngắt truyền thông, ngắt timer)
+- Mỗi ngắt sẽ có 1 địa chỉ khác nhau và stt ngắt càng thấp thì độ ưu tiên càng cao. Khi có ngắt xảy ra, PC sẽ chạy tới địa chỉ ngắt đó và thực hiện.
+- Ngắt ngoài:
+  + LOW: kích hoạt trạng thái chân input mức thấp
+  + HIGH: kích hoạt trạng thái chân input mức cao
+  + RISING: chân input chuyển từ mức thấp lên cao ( xung cạnh lên)
+  + FALLING: chân input chuyển từ mức cao lên thấp ( xung cạnh xuống)
+- Ngắt truyền thông: thường dùng cho UART, SPI
