@@ -289,3 +289,12 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
   + RISING: chân input chuyển từ mức thấp lên cao ( xung cạnh lên)
   + FALLING: chân input chuyển từ mức cao lên thấp ( xung cạnh xuống)
 - Ngắt truyền thông: thường dùng cho UART, SPI
+
+**_Timer:_**
+- Các bước config timer:
+  + Chọn bộ chia dao động và giới hạn của bộ đếm. Ví dụ: với tần số dao động lag 16MHz. ta chọn bộ chia dao động là 128 => 16M/128 = 125000 Hz => 1s sẽ có 125000 dao động => 1ms = 125 dao động => bộ đếm sẽ đếm từ 0 đến 124, khoảnh khắc đếm qua 125 sẽ tràn
+  + Tiếp theo ta sẽ clear cờ tràn để chắc chắn không bị tràn. Khi đếm đến 125 sẽ bị tràn và lúc này cờ trán sẽ được bật lên. Và để đảm bảo khi khởi động vdk thì ta sẽ clear cờ tràn để không vào ngắt
+  + Tiếp theo ta sẽ đăng kí ngắt vào bảng vector table thì ta mới sử dụng dược ngắt
+  + Cuối cùng ta sẽ enable interrupt để cho phép tất cả các ngắt trong vetor table hoạt động
+  + Enable timer: bước này timer sẽ bắt đầu đếm
+- Khi có ngắt sẽ vào hàm ngắt để thực hiện chương trình ngắt. sau khi thực hiện xong sẽ Clear cờ ngắt và reset thanh ghi timer. Nếu ko làm vậy thì chương trình sẽ bị đứng, vì sẽ không thoát ra ngoài được do cờ ngắt cứ báo tràn suốt.
