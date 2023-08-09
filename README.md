@@ -272,6 +272,8 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
   + Full duplex: Giao tiếp đồng thời đến và đi từ mỗi master và slave
   + Half duplex: Dữ liệu đi theo một hướng tại một thời điểm
   + Simplex: Chỉ giao tiếp một chiều
+- UART là giao thức không đồng bộ, do đó không có đường clock nào điều chỉnh tốc độ truyền dữ liệu. Người dùng phải đặt cả hai thiết bị để giao tiếp ở cùng tốc độ. Tốc độ này được gọi là tốc độ truyền, được biểu thị bằng bit trên giây hoặc bps. 
+- Có thể tóm tắt lại như sau. Quá trình truyền dữ liệu diễn ra dưới dạng các gói dữ liệu, bắt đầu bằng một bit bắt đầu, đường mức cao được kéo xuống đất. Sau bit bắt đầu, năm đến chín bit dữ liệu truyền trong khung dữ liệu của gói, theo sau là bit chẵn lẻ tùy chọn để xác minh việc truyền dữ liệu thích hợp. Cuối cùng, một hoặc nhiều bit dừng được truyền ở nơi đường đặt ở mức cao. Như vậy là kết thúc một gói.
 - Dữ liệu truyền qua UART được tổ chức thành các gói. Mỗi gói chứa 1 bit bắt đầu, 5 đến 9 bit dữ liệu (tùy thuộc vào UART), một bit chẵn lẻ tùy chọn và 1 hoặc 2 bit dừng.
   + Start bit: 	UART thường ở mức cao khi không truyền tín hiệu. Để truyền tín hiệu, UART truyền sẽ kéo Tx từ cao xuống thấp trong 1 chu kì clock, khi UART nhận thấy được thay đổi đó nó sẽ bắt đầu đọc các bit trong khung dữ liệu
   + Khung dữ liệu: gồm 5 đến 8 bit nếu có bit chẵn lẻ, hoặc có thể lên đến 9 bit data khi không có bit chẵn lẻ.
@@ -306,4 +308,5 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
 - Ở lớp vật lý, Bus CAN định nghĩa hai trạng thái là “dominant” và “recessive”, tương ứng với hai trạng thái là 0 và 1. Trạng thái “dominant” chiếm ưu thế so với trạng thái “recessive”. Bus chỉ ở trạng thái “reccessive” khi không có node nào phát đi trạng thái “dominant”.
 - Có 2 dạng truyền: CAN low speed và  CAN high speed.
 - ![image](https://github.com/nguyenson0610/Embedded-interview/assets/116062501/8caa3698-0d73-431a-8b71-9b3d64aa2659)
+
 -Chống nhiễu: Trong môi trường có nhiều nguồn điện sẽ tạo ra từ trường, khi bắt chéo lại thì khoảng cách từ 2 dây đến nguồn sẽ bằng nhau nên nhiễu của 2 dây sẽ giống nhau, mà CAN tranceiver sẽ xác định là bit 0 hay bit 1 phụ thuộc vào hiệu của CAN-H và CAN-L, nên khi nhiễu giống nhau thì hiệu của 2 dây sẽ không thay đổi.
