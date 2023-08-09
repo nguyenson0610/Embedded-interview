@@ -298,3 +298,12 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
   + Cuối cùng ta sẽ enable interrupt để cho phép tất cả các ngắt trong vetor table hoạt động
   + Enable timer: bước này timer sẽ bắt đầu đếm
 - Khi có ngắt sẽ vào hàm ngắt để thực hiện chương trình ngắt. sau khi thực hiện xong sẽ Clear cờ ngắt và reset thanh ghi timer. Nếu ko làm vậy thì chương trình sẽ bị đứng, vì sẽ không thoát ra ngoài được do cờ ngắt cứ báo tràn suốt.
+
+**_Giao thức CAN:_**
+- Controller Area Network (CAN hoặc CAN Bus) là công nghệ mạng nối tiếp, tốc độ cao, bán song công, hai dây.
+- Mạng CAN được tạo thành bởi một nhóm các nodes. Mỗi node có thể giao tiếp với bất kỳ nodes nào khác trong mạng. Việc giao tiếp được thực hiện bằng việc truyền đi và nhận các gói dữ liệu - gọi là message.
+- Mỗi Node sẽ bao gồm MCU, CAN Controller, CAN Transceiver --> MCU muốn truyền data sẽ gửi tín hiệu xuống CAN controller, và CAN controller sẽ điều khiển CAN Transceiver xuất ra 2 điện áp CAN-H và CAN-L.
+- Ở lớp vật lý, Bus CAN định nghĩa hai trạng thái là “dominant” và “recessive”, tương ứng với hai trạng thái là 0 và 1. Trạng thái “dominant” chiếm ưu thế so với trạng thái “recessive”. Bus chỉ ở trạng thái “reccessive” khi không có node nào phát đi trạng thái “dominant”.
+- Có 2 dạng truyền: CAN low speed và  CAN high speed.
+- ![image](https://github.com/nguyenson0610/Embedded-interview/assets/116062501/8caa3698-0d73-431a-8b71-9b3d64aa2659)
+-Chống nhiễu: Trong môi trường có nhiều nguồn điện sẽ tạo ra từ trường, khi bắt chéo lại thì khoảng cách từ 2 dây đến nguồn sẽ bằng nhau nên nhiễu của 2 dây sẽ giống nhau, mà CAN tranceiver sẽ xác định là bit 0 hay bit 1 phụ thuộc vào hiệu của CAN-H và CAN-L, nên khi nhiễu giống nhau thì hiệu của 2 dây sẽ không thay đổi.
