@@ -293,6 +293,10 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
 - Ngắt truyền thông: thường dùng cho UART, SPI
 
 **_Timer:_**
+- các ngoại vi được thiết kế để thực hiện một nhiệm vụ đơn giản: đếm các xung nhịp. Mỗi khi có thêm một xung nhịp tại đầu vào đếm thì giá trị của bộ đếm sẽ được tăng lên 01 đơn vị (trong chế độ đếm tiến/đếm lên) hay giảm đi 01 đơn vị (trong chế độ đếm lùi/đếm xuống).
+- Xung nhịp đưa vào đếm có thể là một trong hai loại:
+  + Xung nhịp bên trong IC: Đó là xung nhịp được tạo ra nhờ kết hợp mạch dao động bên trong IC và các linh kiện phụ bên ngoài nối với IC. Trong trường hợp sử dụng xung nhịp loại này, người ta gọi là các bộ định thời (timers).
+  + Xung nhịp bên ngoài IC: Đó là các tín hiệu logic thay đổi liên tục giữa 02 mức 0-1 và không nhất thiết phải là đều đặn. Trong trường hợp này người ta gọi là các bộ đếm (counters).
 - Các bước config timer:
   + Chọn bộ chia dao động và giới hạn của bộ đếm. Ví dụ: với tần số dao động lag 16MHz. ta chọn bộ chia dao động là 128 => 16M/128 = 125000 Hz => 1s sẽ có 125000 dao động => 1ms = 125 dao động => bộ đếm sẽ đếm từ 0 đến 124, khoảnh khắc đếm qua 125 sẽ tràn
   + Tiếp theo ta sẽ clear cờ tràn để chắc chắn không bị tràn. Khi đếm đến 125 sẽ bị tràn và lúc này cờ trán sẽ được bật lên. Và để đảm bảo khi khởi động vdk thì ta sẽ clear cờ tràn để không vào ngắt
