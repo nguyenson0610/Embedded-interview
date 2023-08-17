@@ -98,7 +98,7 @@ Quá trình biên dịch là quá trình chuyển đổi từ ngôn ngữ bậc 
 				...
 			}
 		```
-- **_Pointer to pointer:_** là 1 con trỏ có giá trị là 1 địa chỉ của 1 pointer	
+- **_Pointer to pointer:_** là 1 con trỏ dùng để lưu trử địa chỉ của một con trỏ khác
 	- Khai báo: `int **ptr;`
 
 # **Class** 
